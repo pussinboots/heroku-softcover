@@ -21,6 +21,7 @@ document type with the hard coded filename example. The following api examples b
 There are three different api methods 
 
 * get generated documents
+
 [HTML Document](http://54.191.90.182:9000/api/html/pussinboots/book/)
 
 [PDF Document](http://54.191.90.182:9000/api/pdf/pussinboots/book/)
@@ -30,6 +31,7 @@ There are three different api methods
 [Mobi Document](http://54.191.90.182:9000/api/mobi/pussinboots/book/)
 
 * build documents type
+
 [Build Html Document](http://54.191.90.182:9000/api/build/html/pussinboots/book/)
 
 [Build PDF Document](http://54.191.90.182:9000/api/build/pdf/pussinboots/book/)
@@ -39,6 +41,7 @@ There are three different api methods
 [Build Mobi Document](http://54.191.90.182:9000/api/build/mobi/pussinboots/book/)
 
 * build document but see the console output
+
 [Console Html Document](http://54.191.90.182:9000/api/console/html/pussinboots/book/)
 
 [Console Pdf Document](http://54.191.90.182:9000/api/console/pdf/pussinboots/book/)
