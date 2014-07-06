@@ -15,6 +15,8 @@ function puts(error, stdout, stderr) { sys.puts(stdout) }
 
 server.use(function (req, res, next) {
 	if (req.url === '/favicon.ico') {
+		next();
+	} else {
 		var repo = url.parse(req.url, true).query.repo;
 		if (fs.existsSync("/tmp/" +repo)) {
 			console.log('try to sync git@github.com:' + repo);
@@ -46,8 +48,6 @@ server.use(function (req, res, next) {
 		  		});
 		  	})
 		}
-	} else {
-		next();
 	}
 });
 
