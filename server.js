@@ -19,7 +19,7 @@ var server = connect()
 
 var options = {
     context: '/api',
-    logger:{ file: 'mochaTest.log', level: 'debug' },
+    logger:{ file: 'mochaTest.log', level: 'warn' },
     discoverPath: 'discover',
     protoPath: 'proto'
 };
