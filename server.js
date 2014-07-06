@@ -112,7 +112,7 @@ rest.get('/console/html/:owner/:repo', function (request, content, callback) {
 	fetchRepo(repo, 'pdf', true, callback)	
 }, { contentType:'text/plain' } );
 
-rest.get('/pdf/:owner/:repo', function (request, content, callback) {
+rest.get('/content/pdf/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
 	fs.readFile('/tmp/'+repo +'/ebooks/example.pdf', function (err, data) {
@@ -125,7 +125,7 @@ rest.get('/pdf/:owner/:repo', function (request, content, callback) {
 	});
 }, { contentType:'application/pdf' } );
 
-rest.get('/epub/:owner/:repo', function (request, content, callback) {
+rest.get('/content/epub/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
 	fs.readFile('/tmp/'+repo +'/ebooks/example.epub', function (err, data) {
@@ -138,7 +138,7 @@ rest.get('/epub/:owner/:repo', function (request, content, callback) {
 	});	
 }, { contentType:'application/epub'} );
 
-rest.get('/mobi/:owner/:repo', function (request, content, callback) {
+rest.get('/content/mobi/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
 	fs.readFile('/tmp/'+repo +'/ebooks/example.mobi', function (err, data) {
@@ -151,7 +151,7 @@ rest.get('/mobi/:owner/:repo', function (request, content, callback) {
 	});	
 }, { contentType:'application/mobi' } );
 
-rest.get('/html/:owner/:repo', function (request, content, callback) {
+rest.get('/content/html/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
 	fs.readFile('/tmp/'+repo +'/html/example.html', function (err, data) {
@@ -190,7 +190,7 @@ rest.get('/build/html/:owner/:repo', function (request, content, callback) {
 
 server.use(function static(req, res, next) {
 	//todo url validation match start url dont't care what follows after some slashes
-	if (req.url.match(/^\/api\/html\/(.+)\/(.+)\/(.+)\/(.+)/)) {
+	if (req.url.match(/^\/api\/(.+)\/html\/(.+)\/(.+)\/(.+)\/(.+)/)) {
 		var parts = url.parse(req.url, true).pathname.split('/');
 		var file = '/tmp/' + parts[3] + "/" + parts[4] + '/html/' + parts.splice(5, parts.length).join('/')
 		console.log(file);
