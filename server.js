@@ -190,9 +190,9 @@ rest.get('/build/html/:owner/:repo', function (request, content, callback) {
 
 server.use(function static(req, res, next) {
 	//todo url validation match start url dont't care what follows after some slashes
-	if (req.url.match(/^\/api\/(.+)\/html\/(.+)\/(.+)\/(.+)\/(.+)/)) {
+	if (req.url.match(/^\/api\/.+\/html\/(.+)\/(.+)\/(.+)\/(.+)/)) {
 		var parts = url.parse(req.url, true).pathname.split('/');
-		var file = '/tmp/' + parts[3] + "/" + parts[4] + '/html/' + parts.splice(5, parts.length).join('/')
+		var file = '/tmp/' + parts[5] + "/" + parts[6] + '/html/' + parts.splice(7, parts.length).join('/')
 		console.log(file);
 		var stream = send(req, file, {});
 		stream.pipe(res);
