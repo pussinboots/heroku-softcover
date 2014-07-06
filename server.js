@@ -22,12 +22,12 @@ server.use(function (req, res, next) {
 	  		console.log('synced repo ' + _repo);
 	  		console.log('err ' + err);
 	  		exec("softcover build:pdf",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
-	  			/*res.write(stdout);
-	  			res.end();_*/
-	  			sys.puts(stdout);
+	  			res.write(stdout);
+	  			res.end();
+	  			/*sys.puts(stdout);
 	  			var fileStream = fs.createReadStream('/tmp/'+repo +'/ebooks/example.pdf');
 				res.writeHead(200, {'Content-Type': 'application/pdf', "Cache-Control:" : "no-cache, no-store, must-revalidate" });
-        		fileStream.pipe(res);
+        		fileStream.pipe(res);*/
 	  		});
 	  	})
 	} else {
@@ -36,12 +36,12 @@ server.use(function (req, res, next) {
 	  		console.log('repo ' + _repo);
 	  		console.log('err ' + err);
 	  		exec("softcover build:pdf",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
-	  			/*res.write(stdout);
-	  			res.end();*/
-	  			sys.puts(stdout);
+	  			res.write(stdout);
+	  			res.end();
+	  			/*sys.puts(stdout);
 	  			var fileStream = fs.createReadStream('/tmp/'+repo +'/ebooks/example.pdf');
 				res.writeHead(200, {'Content-Type': 'application/pdf', "Cache-Control:" : "no-cache, no-store, must-revalidate" });
-        		fileStream.pipe(res);
+        		fileStream.pipe(res);*/
 	  		});
 	  	})
 	}
