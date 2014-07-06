@@ -192,7 +192,7 @@ server.use(function static(req, res, next) {
 	//todo url validation match start url dont't care what follows after some slashes
 	if (req.url.match(/^\/api\/.+\/html\/(.+)\/(.+)\/(.+)\/(.+)/)) {
 		var parts = url.parse(req.url, true).pathname.split('/');
-		var file = '/tmp/' + parts[5] + "/" + parts[6] + '/html/' + parts.splice(7, parts.length).join('/')
+		var file = '/tmp/' + parts[4] + "/" + parts[5] + '/html/' + parts.splice(6, parts.length).join('/')
 		console.log(file);
 		var stream = send(req, file, {});
 		stream.pipe(res);
