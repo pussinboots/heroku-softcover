@@ -25,6 +25,7 @@ server.use(function (req, res, next) {
 		  		console.log('synced repo ' + _repo);
 		  		console.log('err ' + err);
 		  		exec("softcover build:pdf",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
+		  			res.writeHead(200,{"Content Type": "text/plain"});
 		  			res.write(stdout);
 		  			res.end();
 		  			/*sys.puts(stdout);
