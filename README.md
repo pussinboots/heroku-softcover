@@ -1,31 +1,39 @@
-heroku-badge
+heroku-softcover  BETA
 ==================
-[![Build Status](https://travis-ci.org/pussinboots/heroku-badge.svg?branch=master)](https://travis-ci.org/pussinboots/heroku-badge)
-[![Dependencies](https://david-dm.org/pussinboots/heroku-badge.png)](https://david-dm.org/pussinboots/heroku-badge)
-[![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)](https://heroku-badge.herokuapp.com/projects.html)
+[![Dependencies](https://david-dm.org/pussinboots/heroku-softcover.png)](https://david-dm.org/pussinboots/heroku-softcover)
+[Demo Get Html version](http://54.191.90.182:9000/api/html/pussinboots/book/)
+[Demo Build Html version](http://54.191.90.182:9000/api/build/html/pussinboots/book/)
+[Demo Console Html version](http://54.191.90.182:9000/api/console/html/pussinboots/book/)
 
-Can be used to display heroku based badge that show heroku running when heroku app response otherwise heroku failed.
-This project is build in near 2 hours so it is still pre alpha.
+This start as heroku project but was not possible to setup there beacuse i need a filesystem so i switch to an amazon aws ec2 instance.
+It is still beta but should work it can be used to check out softcover projects from github and build the different document with
+the softcover build command. 
 
-##Usage
-
-add the following link https://heroku-badge.herokuapp.com/?app=heroku-badge
-and specify with the app parameter the name of your app. Than the heroku badge server
-tries to call
-https://[app].herokuapp.com/images/heroku-badge.png if this failed than the failed badge will return 
-otherwise the called badge will return
+The api methods that builds  the documents like /api/build/<document type>/<owner>/<repo> and /api/console/<document type>/<owner>/<repo> perform first an git clone for the specified repo (owner + repo) or if a temporary version exists than it performs a git pull request. Than it start the softcover build:<document type> and return the result or the console output.
 
 
-##Todo
+There is still a bug at the moment that the softcover books filename has to be example. Because it fetch the different
+document type with the hard coded filename example. The following api examples build my softcover (book)[https://github.com/pussinboots/book].
 
-* no nedd to upload the heroku-badge.png into your heroku app
-* configurable heroku check url
+There are three different api methods 
 
-##Copyright
+* get generated documents
+[HTML Document](http://54.191.90.182:9000/api/html/pussinboots/book/)
+[PDF Document](http://54.191.90.182:9000/api/pdf/pussinboots/book/)
+[EPUB Document](http://54.191.90.182:9000/api/epub/pussinboots/book/)
+[Mobi Document](http://54.191.90.182:9000/api/mobi/pussinboots/book/)
 
-The badges are made by me but feel free to use and copy it of course you have to copy it into your heroku app.
+* build documents type
+[Build Html Document](http://54.191.90.182:9000/api/build/html/pussinboots/book/)
+[Build PDF Document](http://54.191.90.182:9000/api/build/pdf/pussinboots/book/)
+[Build EPUB Document](http://54.191.90.182:9000/api/build/epub/pussinboots/book/)
+[Build Mobi Document](http://54.191.90.182:9000/api/build/mobi/pussinboots/book/)
 
-License
---------------
+* build document but see the console output
+[Console Html Document](http://54.191.90.182:9000/api/console/html/pussinboots/book/)
+[Console Pdf Document](http://54.191.90.182:9000/api/console/pdf/pussinboots/book/)
+[Console Epub Document](http://54.191.90.182:9000/api/console/epub/pussinboots/book/)
+[Console Mobi Document](http://54.191.90.182:9000/api/console/mobi/pussinboots/book/)
 
-heroku-badge is released under the [MIT License](http://opensource.org/licenses/MIT).
+
+heroku-softcover is released under the [MIT License](http://opensource.org/licenses/MIT).
