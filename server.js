@@ -23,7 +23,7 @@ server.use(function (req, res, next) {
 		if (fs.existsSync("/tmp/" +repo)) {
 			console.log('try to sync git@github.com:' + repo);
 			var repository = git("/tmp/"+repo);
-	    	repository.checkout('master', function(err, _repo) {
+	    	repository.pull('master', function(err, _repo) {
 		  		console.log('synced repo ' + _repo);
 		  		console.log('err ' + err);
 		  		exec("softcover build:pdf",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
