@@ -14,9 +14,15 @@ the softcover build command.
 
 The api methods that builds  the documents like /api/build/<document type>/<owner>/<repo> and /api/console/<document type>/<owner>/<repo> perform first an git clone for the specified repo (owner + repo) or if a temporary version exists than it performs a git pull request. Than it start the softcover build:<document type> and return the result or the console output.
 
-
 There is still a bug at the moment that the softcover books filename has to be example. Because it fetch the different
 document type with the hard coded filename example. The following api examples build my softcover (book)[https://github.com/pussinboots/book].
+
+##Motivation
+
+The travis ci build of my softcover project takes to long by installing all needed dependencies. So i guess there
+would be faster way. And so i started this project and it takes my seven hour to get a full working prototyp running on aws ec2. I had preffer heroku but need a local file system to keep things very easy and to concentrate on the main aspects.
+
+##API
 
 There are three different api methods 
 
