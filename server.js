@@ -32,7 +32,7 @@ server.use(function (req, res, next) {
 	  	})
 	} else {
 		console.log('try to clone git@github.com:' + repo);
-		git.clone("git@github.com:" + repo, "/tmp/"+repo, function(err, _repo) {
+		git.clone("https://github.com/" + repo, "/tmp/"+repo, function(err, _repo) {
 	  		console.log('repo ' + _repo);
 	  		console.log('err ' + err);
 	  		exec("softcover build:pdf",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
