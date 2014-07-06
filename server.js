@@ -19,7 +19,7 @@ server.use(function (req, res, next) {
 		next();
 	} else {
 		var repo = url.parse(req.url, true).query.repo;
-		var result = execSync("rm -rfv /tmp/" + repo)
+		var result = execSync("rm -rfv /tmp/" + repo);
 		console.log(result.stdout);
 		console.log('try to clone git@github.com:' + repo);
 		git.clone("https://github.com/" + repo, "/tmp/"+repo, function(err, _repo) {
@@ -30,7 +30,7 @@ server.use(function (req, res, next) {
 	  			var fileStream = fs.createReadStream('/tmp/'+repo +'/ebooks/example.pdf');
 				res.writeHead(200, {'Content-Type': 'application/pdf', "Cache-Control:" : "no-cache, no-store, must-revalidate" });
         		fileStream.pipe(res);*/
-
+        	res.writeHead(200, {'Content-Type': 'test/plain', "Cache-Control:" : "no-cache, no-store, must-revalidate" });
 		    res.write(proc.stdout)
 	        res.end();
 	  	})	
