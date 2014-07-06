@@ -106,6 +106,12 @@ rest.get('/console/mobi/:owner/:repo', function (request, content, callback) {
 	fetchRepo(repo, 'mobi', true, callback)	
 }, { contentType:'text/plain' } );
 
+rest.get('/console/html/:owner/:repo', function (request, content, callback) {
+	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
+	var repo = request.parameters.owner +"/" + request.parameters.repo
+	fetchRepo(repo, 'pdf', true, callback)	
+}, { contentType:'text/plain' } );
+
 rest.get('/pdf/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
