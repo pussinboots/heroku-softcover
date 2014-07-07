@@ -2,11 +2,11 @@ heroku-softcover  BETA
 ==================
 [![Dependencies](https://david-dm.org/pussinboots/heroku-softcover.png)](https://david-dm.org/pussinboots/heroku-softcover)
 
-[Demo Get Html version](http://54.191.90.182:9000/api/content/html/pussinboots/book/)
+[Demo Get Html version](http://nnamretti.ddns.net/api/content/html/pussinboots/book/)
 
-[Demo Build Html version](http://54.191.90.182:9000/api/build/html/pussinboots/book/)
+[Demo Build Html version](http://nnamretti.ddns.net/api/build/html/pussinboots/book/)
 
-[Demo Console Html version](http://54.191.90.182:9000/api/console/html/pussinboots/book/)
+[Demo Console Html version](http://nnamretti.ddns.net/api/console/html/pussinboots/book/)
 
 This start as heroku project but was not possible to setup there beacuse i need a filesystem so i switch to an amazon aws ec2 instance.
 It is still beta but should work it can be used to check out softcover projects from github and build the different document with
@@ -37,32 +37,32 @@ There are three different api methods
 
 * get generated documents
 
-[HTML Document](http://54.191.90.182:9000/api/content/html/pussinboots/book/)
+[HTML Document](http://nnamretti.ddns.net/api/content/html/pussinboots/book/)
 
-[PDF Document](http://54.191.90.182:9000/api/content/pdf/pussinboots/book/)
+[PDF Document](http://nnamretti.ddns.net/api/content/pdf/pussinboots/book/)
 
-[EPUB Document](http://54.191.90.182:9000/api/content/epub/pussinboots/book/)
+[EPUB Document](http://nnamretti.ddns.net/api/content/epub/pussinboots/book/)
 
-[Mobi Document](http://54.191.90.182:9000/api/content/mobi/pussinboots/book/)
+[Mobi Document](http://nnamretti.ddns.net/api/content/mobi/pussinboots/book/)
 
 * build documents type
 
-[Build Html Document](http://54.191.90.182:9000/api/build/html/pussinboots/book/)
+[Build Html Document](http://nnamretti.ddns.net/api/build/html/pussinboots/book/)
 
-[Build PDF Document](http://54.191.90.182:9000/api/build/pdf/pussinboots/book/)
+[Build PDF Document](http://nnamretti.ddns.net/api/build/pdf/pussinboots/book/)
 
-[Build EPUB Document](http://54.191.90.182:9000/api/build/epub/pussinboots/book/)
+[Build EPUB Document](http://nnamretti.ddns.net/api/build/epub/pussinboots/book/)
 
-[Build Mobi Document](http://54.191.90.182:9000/api/build/mobi/pussinboots/book/)
+[Build Mobi Document](http://nnamretti.ddns.net/api/build/mobi/pussinboots/book/)
 
 * build document but see the console output
 
-[Console Html Document](http://54.191.90.182:9000/api/console/html/pussinboots/book/)
+[Console Html Document](http://nnamretti.ddns.net/api/console/html/pussinboots/book/)
 
-[Console Pdf Document](http://54.191.90.182:9000/api/console/pdf/pussinboots/book/)
+[Console Pdf Document](http://nnamretti.ddns.net/api/console/pdf/pussinboots/book/)
 
-[Console Epub Document](http://54.191.90.182:9000/api/console/epub/pussinboots/book/)
+[Console Epub Document](http://nnamretti.ddns.net/api/console/epub/pussinboots/book/)
 
-[Console Mobi Document](http://54.191.90.182:9000/api/console/mobi/pussinboots/book/)
+[Console Mobi Document](http://nnamretti.ddns.net/api/console/mobi/pussinboots/book/)
 
 heroku-softcover is released under the [MIT License](http://opensource.org/licenses/MIT).
