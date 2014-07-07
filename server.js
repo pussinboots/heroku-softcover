@@ -30,7 +30,7 @@ function puts(error, stdout, stderr) { sys.puts(stdout) }
 
 //make output file configurable per equest or setup config file in github
 function softcover(repo, output, callback) {
-	return exec("softcover build:" + output,{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
+	return exec("softcover build:" + output + " -n",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
 		sys.puts(stdout);
 		fs.readFile('/tmp/'+repo +'/ebooks/example.' + output, function (err, data) {
 		  if (err) throw err;
@@ -40,14 +40,14 @@ function softcover(repo, output, callback) {
 }
 
 function softcoverConsole(repo, output, callback) {
-	return exec("softcover build:" + output,{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
+	return exec("softcover build:" + output + " -n",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
 		sys.puts(stdout);
 		callback(null, stdout);
 	});
 }
 
 function softcoverHtml(repo, callback) {
-	return exec("softcover build:pdf",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
+	return exec("softcover build:pdf -n",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
 		sys.puts(stdout);
 		fs.readFile('/tmp/'+repo +'/html/example.html', function (err, data) {
 		  if (err) throw err;
