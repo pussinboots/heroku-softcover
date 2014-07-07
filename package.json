@@ -8,8 +8,9 @@
     "exec-sync": "^0.1.6",
     "gift": "^0.4.2",
     "request": "^2.36.0",
+    "send": "0.5.0",
     "serve-static": "^1.2.0",
-    "send": "0.5.0"
+    "yamljs": "^0.1.5"
   },
   "engines": {
     "node": "0.10.x"

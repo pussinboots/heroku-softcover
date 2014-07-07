@@ -5,6 +5,7 @@ var requestCl = require("request");
 var serveStatic = require('serve-static');
 var git  = require('gift');
 var send  = require('send');
+var yaml = require('yamljs');
 
 var fs = require('fs');
 var url = require('url');
@@ -32,7 +33,8 @@ function puts(error, stdout, stderr) { sys.puts(stdout) }
 function softcover(repo, output, callback) {
 	return exec("softcover build:" + output + " -n",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
 		sys.puts(stdout);
-		fs.readFile('/tmp/'+repo +'/ebooks/example.' + output, function (err, data) {
+		bookYml = yaml.load('/tmp/'+repo +'config/book.yml');
+		fs.readFile('/tmp/'+repo +'/ebooks/'+ bookYml.filename +'.' + output, function (err, data) {
 		  if (err) throw err;
 		  callback(null, data, { headers: { 'Content-Disposition': 'attachment; filename="book.' + output + '"'  } });
 		});
@@ -49,7 +51,8 @@ function softcoverConsole(repo, output, callback) {
 function softcoverHtml(repo, callback) {
 	return exec("softcover build:pdf -n",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
 		sys.puts(stdout);
-		fs.readFile('/tmp/'+repo +'/html/example.html', function (err, data) {
+		bookYml = yaml.load('/tmp/'+repo +'config/book.yml');
+		fs.readFile('/tmp/'+repo +'/html/'+bookYml.filename+'.html', function (err, data) {
 		  if (err) throw err;
 		  callback(null, data);
 		});
