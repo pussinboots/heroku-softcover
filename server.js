@@ -31,8 +31,10 @@ function puts(error, stdout, stderr) { sys.puts(stdout) }
 
 //make output file configurable per equest or setup config file in github
 function softcover(repo, output, callback) {
-	return exec("softcover build:" + output + " -n",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
+	var options = output == "pdf" ? "-n" : ""
+	return exec("softcover build:" + output + " " + options,{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
 		sys.puts(stdout);
+		sys.puts(stderr);
 		bookYml = yaml.load('/tmp/'+repo +'/config/book.yml');
 		fs.readFile('/tmp/'+repo +'/ebooks/'+ bookYml.filename +'.' + output, function (err, data) {
 		  if (err) throw err;
@@ -64,7 +66,7 @@ function fetchRepo(repo, output, stdout, callback) {
 	if (fs.existsSync("/tmp/" +repo)) {
 		console.log('try to sync git@github.com:' + repo);
 		var repository = git("/tmp/"+repo);
-    	repository.pull('master', function(err, _repo) {
+    		repository.pull('master', function(err, _repo) {
 	  		console.log('synced repo ' + _repo);
 	  		console.log('err ' + err);
 	  		if(stdout) 
