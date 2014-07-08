@@ -4,7 +4,7 @@ node_js:
 after_failure:
 - wget -O - https://unitcover.herokuapp.com/scripts/upload.sh | bash /dev/stdin pussinboots heroku-softcover "" "xunit.xml"
 after_success:
-- wget -O - https://unitcover.herokuapp.com/scripts/upload.sh | bash /dev/stdin pussinboots unitcover ./target/test-reports/  "test-results.xml test-results-live.xml"
+- wget -O - https://unitcover.herokuapp.com/scripts/upload.sh | bash /dev/stdin pussinboots heroku-softcover "" "xunit.xml"
 before_install:
  - git clone https://github.com/pussinboots/softcover
  - cd softcover && gem build softcover.gemspec
