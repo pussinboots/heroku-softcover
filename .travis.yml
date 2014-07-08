@@ -5,4 +5,16 @@ after_failure:
 - wget -O - https://unitcover.herokuapp.com/scripts/upload.sh | bash /dev/stdin pussinboots heroku-softcover "" "xunit.xml"
 after_success:
 - wget -O - https://unitcover.herokuapp.com/scripts/upload.sh | bash /dev/stdin pussinboots unitcover ./target/test-reports/  "test-results.xml test-results-live.xml"
-
+before_install:
+ - git clone https://github.com/pussinboots/softcover
+ - cd softcover && gem build softcover.gemspec
+ - sudo gem install softcover-1.0.beta2.gem
+ - cd ..
+ - yes "" | sudo apt-add-repository ppa:texlive-backports/ppa
+ - sudo apt-get update -qq
+ - sudo apt-get install texlive-xetex texlive-fonts-recommended texlive-latex-recommended texlive-latex-extra
+ - sudo apt-get install -qq inkscape
+ - sudo python -c "import sys; py3 = sys.version_info[0] > 2; u = __import__('urllib.request' if py3 else 'urllib', fromlist=1); exec(u.urlopen('http://status.calibre-ebook.com/linux_installer').read()); main(install_dir='`echo ~`')"
+ - export PATH=$PATH:`echo ~`
+ - curl -O -L https://github.com/IDPF/epubcheck/releases/download/v3.0/epubcheck-3.0.zip && unzip epubcheck-3.0.zip -d ~
+ - curl -o ~/kindlegen http://softcover-binaries.s3.amazonaws.com/kindlegen && chmod +x ~/kindlegen
