@@ -14,5 +14,13 @@
   },
   "engines": {
     "node": "0.10.x"
+  },
+  "scripts": { "test": "./node_modules/mocha/bin/mocha --timeout 60000 --reporter xunit-file" },
+  "devDependencies": {
+    "mocha": "^1.20.1",
+    "should": "^4.0.4",
+    "supertest": "^0.13.0",
+    "winston": "^0.7.3",
+    "xunit-file": "0.0.5"
   }
 }

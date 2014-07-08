@@ -9,8 +9,9 @@ var yaml = require('yamljs');
 
 var fs = require('fs');
 var url = require('url');
-var sys = require('sys')
+var sys = require('sys');
 var exec = require('child_process').exec;
+var repoFolder = "/tmp/repos/";
 //var execSync = require('exec-sync');
 
 var port = Number(process.env.PORT || 9000);
@@ -32,11 +33,11 @@ function puts(error, stdout, stderr) { sys.puts(stdout) }
 //make output file configurable per equest or setup config file in github
 function softcover(repo, output, callback) {
 	var options = output == "pdf" ? "-n" : ""
-	return exec("softcover build:" + output + " " + options,{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
+	return exec("softcover build:" + output + " " + options,{cwd: repoFolder +repo}, function (error, stdout, stderr) { 
 		sys.puts(stdout);
 		sys.puts(stderr);
-		bookYml = yaml.load('/tmp/'+repo +'/config/book.yml');
-		fs.readFile('/tmp/'+repo +'/ebooks/'+ bookYml.filename +'.' + output, function (err, data) {
+		bookYml = yaml.load(repoFolder+repo +'/config/book.yml');
+		fs.readFile(repoFolder+repo +'/ebooks/'+ bookYml.filename +'.' + output, function (err, data) {
 		  if (err) throw err;
 		  callback(null, data, { headers: { 'Content-Disposition': 'attachment; filename="book.' + output + '"'  } });
 		});
@@ -44,17 +45,19 @@ function softcover(repo, output, callback) {
 }
 
 function softcoverConsole(repo, output, callback) {
-	return exec("softcover build:" + output + " -n",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
+	var options = output == "pdf" ? "-n" : ""
+	return exec("softcover build:" + output + " " + options,{cwd: repoFolder +repo}, function (error, stdout, stderr) { 
+		sys.puts(stderr);
 		sys.puts(stdout);
-		callback(null, stdout);
+		callback(null, stderr + stdout);
 	});
 }
 
 function softcoverHtml(repo, callback) {
-	return exec("softcover build:pdf -n",{cwd: '/tmp/'+repo}, function (error, stdout, stderr) { 
+	return exec("softcover build:pdf -n",{cwd: repoFolder +repo}, function (error, stdout, stderr) { 
 		sys.puts(stdout);
-		bookYml = yaml.load('/tmp/'+repo +'/config/book.yml');
-		fs.readFile('/tmp/'+repo +'/html/'+bookYml.filename+'.html', function (err, data) {
+		bookYml = yaml.load(repoFolder +repo +'/config/book.yml');
+		fs.readFile(repoFolder +repo +'/html/'+bookYml.filename+'.html', function (err, data) {
 		  if (err) throw err;
 		  callback(null, data);
 		});
@@ -62,10 +65,10 @@ function softcoverHtml(repo, callback) {
 }
 
 function fetchRepo(repo, output, stdout, callback) {
-	console.log("checkl if exists /tmp/" +repo);
-	if (fs.existsSync("/tmp/" +repo)) {
+	console.log("checkl if exists "+ repoFolder +repo);
+	if (fs.existsSync(repoFolder +repo)) {
 		console.log('try to sync git@github.com:' + repo);
-		var repository = git("/tmp/"+repo);
+		var repository = git(repoFolder+repo);
     		repository.pull('master', function(err, _repo) {
 	  		console.log('synced repo ' + _repo);
 	  		console.log('err ' + err);
@@ -79,7 +82,7 @@ function fetchRepo(repo, output, stdout, callback) {
 	  	})
 	} else {
 		console.log('try to clone git@github.com:' + repo);
-		git.clone("https://github.com/" + repo, "/tmp/"+repo, function(err, _repo) {
+		git.clone("https://github.com/" + repo, repoFolder +repo, function(err, _repo) {
 	  		console.log('repo ' + _repo);
 	  		console.log('err ' + err);
 	  		if(stdout) 
@@ -120,7 +123,7 @@ rest.get('/console/html/:owner/:repo', function (request, content, callback) {
 rest.get('/content/pdf/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
-	fs.readFile('/tmp/'+repo +'/ebooks/example.pdf', function (err, data) {
+	fs.readFile(repoFolder +repo +'/ebooks/example.pdf', function (err, data) {
 		if (err) {
 			var error = new Error(err);
 	    	error.statusCode = 404;
@@ -133,7 +136,7 @@ rest.get('/content/pdf/:owner/:repo', function (request, content, callback) {
 rest.get('/content/epub/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
-	fs.readFile('/tmp/'+repo +'/ebooks/example.epub', function (err, data) {
+	fs.readFile(repoFolder +repo +'/ebooks/example.epub', function (err, data) {
 		if (err) {
 			var error = new Error(err);
 	    	error.statusCode = 404;
@@ -146,7 +149,7 @@ rest.get('/content/epub/:owner/:repo', function (request, content, callback) {
 rest.get('/content/mobi/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
-	fs.readFile('/tmp/'+repo +'/ebooks/example.mobi', function (err, data) {
+	fs.readFile(repoFolder +repo +'/ebooks/example.mobi', function (err, data) {
 		if (err) {
 			var error = new Error(err);
 	    	error.statusCode = 404;
@@ -159,7 +162,7 @@ rest.get('/content/mobi/:owner/:repo', function (request, content, callback) {
 rest.get('/content/html/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
-	fs.readFile('/tmp/'+repo +'/html/example.html', function (err, data) {
+	fs.readFile(repoFolder +repo +'/html/example.html', function (err, data) {
 		if (err) {
 			var error = new Error(err);
 	    	error.statusCode = 404;
@@ -197,7 +200,7 @@ server.use(function static(req, res, next) {
 	//todo url validation match start url dont't care what follows after some slashes
 	if (req.url.match(/^\/api\/.+\/html\/(.+)\/(.+)\/(.+)\/(.+)/)) {
 		var parts = url.parse(req.url, true).pathname.split('/');
-		var file = '/tmp/' + parts[4] + "/" + parts[5] + '/html/' + parts.splice(6, parts.length).join('/')
+		var file = repoFolder + parts[4] + "/" + parts[5] + '/html/' + parts.splice(6, parts.length).join('/')
 		console.log(file);
 		var stream = send(req, file, {});
 		stream.pipe(res);
