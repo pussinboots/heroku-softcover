@@ -37,10 +37,19 @@ function softcover(repo, output, callback) {
 		sys.puts(stdout);
 		sys.puts(stderr);
 		bookYml = yaml.load(repoFolder+repo +'/config/book.yml');
-		fs.readFile(repoFolder+repo +'/ebooks/'+ bookYml.filename +'.' + output, function (err, data) {
-		  if (err) throw err;
-		  callback(null, data, { headers: { 'Content-Disposition': 'attachment; filename="book.' + output + '"'  } });
-		});
+		var data = fs.createReadStream(repoFolder+repo +'/ebooks/'+ bookYml.filename +'.' + output);
+		callback(null, data, { headers: { 'Content-Disposition': 'attachment; filename="book.' + output + '"'  }});
+	});
+}
+
+function softcoverfs(res, repo, output, callback) {
+	var options = output == "pdf" ? "-n" : ""
+	return exec("softcover build:" + output + " " + options,{cwd: repoFolder +repo}, function (error, stdout, stderr) { 
+		sys.puts(stdout);
+		sys.puts(stderr);
+		bookYml = yaml.load(repoFolder+repo +'/config/book.yml');
+		var data = fs.createReadStream(repoFolder+repo +'/ebooks/'+ bookYml.filename +'.' + output);
+		data.pipe(res);
 	});
 }
 
@@ -57,10 +66,8 @@ function softcoverHtml(repo, callback) {
 	return exec("softcover build:pdf -n",{cwd: repoFolder +repo}, function (error, stdout, stderr) { 
 		sys.puts(stdout);
 		bookYml = yaml.load(repoFolder +repo +'/config/book.yml');
-		fs.readFile(repoFolder +repo +'/html/'+bookYml.filename+'.html', function (err, data) {
-		  if (err) throw err;
-		  callback(null, data);
-		});
+		var data = fs.createReadStream(repoFolder+repo +'/html/'+ bookYml.filename +'.html');
+		callback(null, data);
 	});
 }
 
@@ -69,7 +76,7 @@ function fetchRepo(repo, output, stdout, callback) {
 	if (fs.existsSync(repoFolder +repo)) {
 		console.log('try to sync git@github.com:' + repo);
 		var repository = git(repoFolder+repo);
-    		repository.pull('master', function(err, _repo) {
+    	repository.pull('master', function(err, _repo) {
 	  		console.log('synced repo ' + _repo);
 	  		console.log('err ' + err);
 	  		if(stdout) 
@@ -116,6 +123,7 @@ rest.get('/console/mobi/:owner/:repo', function (request, content, callback) {
 
 rest.get('/console/html/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
+	//var outputType = (format == 'html')? "pdf": format;
 	var repo = request.parameters.owner +"/" + request.parameters.repo
 	fetchRepo(repo, 'pdf', true, callback)	
 }, { contentType:'text/plain' } );
@@ -123,53 +131,33 @@ rest.get('/console/html/:owner/:repo', function (request, content, callback) {
 rest.get('/content/pdf/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
-	fs.readFile(repoFolder +repo +'/ebooks/example.pdf', function (err, data) {
-		if (err) {
-			var error = new Error(err);
-	    	error.statusCode = 404;
-	    	return callback( error );
-	    }
-		callback(null, data, { headers: { 'Content-Disposition': 'attachment; filename="book.pdf'  } });
-	});
+	bookYml = yaml.load(repoFolder+repo +'/config/book.yml');
+	var data = fs.createReadStream(repoFolder+repo +'/ebooks/'+ bookYml.filename +'.pdf');
+	callback(null, data, { headers: { 'Content-Disposition': 'attachment; filename="book.pdf'  } });
 }, { contentType:'application/pdf' } );
 
 rest.get('/content/epub/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
-	var repo = request.parameters.owner +"/" + request.parameters.repo
-	fs.readFile(repoFolder +repo +'/ebooks/example.epub', function (err, data) {
-		if (err) {
-			var error = new Error(err);
-	    	error.statusCode = 404;
-	    	return callback( error );
-	    }
-		callback(null, data, { headers: { 'Content-Disposition': 'attachment; filename="book.epub'  } });
-	});	
+	var repo = request.parameters.owner +"/" + request.parameters.repo;
+	bookYml = yaml.load(repoFolder+repo +'/config/book.yml');
+	var data = fs.createReadStream(repoFolder+repo +'/ebooks/'+ bookYml.filename +'.epub');
+	callback(null, data, { headers: { 'Content-Disposition': 'attachment; filename="book.epub'  } });
 }, { contentType:'application/epub'} );
 
 rest.get('/content/mobi/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
-	var repo = request.parameters.owner +"/" + request.parameters.repo
-	fs.readFile(repoFolder +repo +'/ebooks/example.mobi', function (err, data) {
-		if (err) {
-			var error = new Error(err);
-	    	error.statusCode = 404;
-	    	return callback( error );
-	    }
-		callback(null, data, { headers: { 'Content-Disposition': 'attachment; filename="book.mobi"'  } });
-	});	
+	var repo = request.parameters.owner +"/" + request.parameters.repo;
+	bookYml = yaml.load(repoFolder+repo +'/config/book.yml');
+	var data = fs.createReadStream(repoFolder+repo +'/ebooks/'+ bookYml.filename +'.mobi');
+	callback(null, data, { headers: { 'Content-Disposition': 'attachment; filename="book.mobi"'  } });
 }, { contentType:'application/mobi' } );
 
 rest.get('/content/html/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
-	fs.readFile(repoFolder +repo +'/html/example.html', function (err, data) {
-		if (err) {
-			var error = new Error(err);
-	    	error.statusCode = 404;
-	    	return callback( error );
-	    }
-		callback(null, data);
-	});
+	bookYml = yaml.load(repoFolder+repo +'/config/book.yml');
+	var data = fs.createReadStream(repoFolder+repo +'/html/'+ bookYml.filename +'.html');
+	callback(null, data);
 }, { contentType:'text/html' } );
 
 rest.get('/build/pdf/:owner/:repo', function (request, content, callback) {

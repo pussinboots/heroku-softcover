@@ -23,7 +23,8 @@ var deleteFolderRecursive = function(path) {
 describe('api', function() {
   var url = 'http://localhost:9000';
   before(function(done) {
-    deleteFolderRecursive('/tmp/repos')
+    deleteFolderRecursive('/tmp/repos/pussinboots/book/ebooks')
+    fs.unlinkSync('/tmp/repos/pussinboots/book/html/example.html')
   	done();
   });
   describe('content', function() {
