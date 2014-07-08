@@ -19,8 +19,7 @@ the softcover build command.
 
 The api methods that builds  the documents like /api/build/:documenttype/:owner/:repo and /api/console/:documenttype/:owner/:repo perform first an git clone for the specified repo (owner + repo) or if a temporary version exists than it performs a git pull request. Than it start the softcover build:(documenttype) and return the result or the console output.
 
-There is still a bug at the moment that the softcover books filename has to be example. Because it fetch the different
-document type with the hard coded filename example. The following api examples build my softcover (book)[https://github.com/pussinboots/book]. It will see how i can manage that aws stuff (i'am familiar with but don't love it) and i will see if i could keep this instance running.
+The following api examples build my softcover (book)[https://github.com/pussinboots/book]. It will see how i can manage that aws stuff (i'am familiar with but don't love it) and i will see if i could keep this instance running.
 
 At the moment it is more a tool for me to learn nodejs better and to support myself by keep writing my first softcover book.
 
@@ -70,5 +69,11 @@ There are three different api methods
 [Console Epub Document](http://nnamretti.ddns.net/api/console/epub/pussinboots/book/)
 
 [Console Mobi Document](http://nnamretti.ddns.net/api/console/mobi/pussinboots/book/)
+
+##Contribute
+
+I mentioned it's start as a tool for me to near realtime changes on my book but feel free to use it also or to fork and adapt this.
+
+##License
 
 heroku-softcover is released under the [MIT License](http://opensource.org/licenses/MIT).
