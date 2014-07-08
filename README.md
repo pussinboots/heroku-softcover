@@ -30,6 +30,7 @@ At the moment it is more a tool for me to learn nodejs better and to support mys
 * use the http port instead of 9000 (done)
 * reboot and restart stuff
 * automated git pull
+* api/content not working when book file is not equals example.fileextension will be solved soon
 
 ##Motivation
 
