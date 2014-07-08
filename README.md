@@ -1,12 +1,17 @@
 heroku-softcover  BETA
 ==================
+[![Build Status](https://travis-ci.org/pussinboots/heroku-softcover.svg?branch=master)](https://travis-ci.org/pussinboots/heroku-softcover)
 [![Dependencies](https://david-dm.org/pussinboots/heroku-softcover.png)](https://david-dm.org/pussinboots/heroku-softcover)
+[![Unit Tests](https://unitcover.herokuapp.com/api/pussinboots/heroku-softcover/badge)](https://unitcover.herokuapp.com/#/builds/pussinboots/heroku-softcover/builds)
 
 [Demo Get Html version](http://nnamretti.ddns.net/api/content/html/pussinboots/book/)
 
 [Demo Build Html version](http://nnamretti.ddns.net/api/build/html/pussinboots/book/)
 
 [Demo Console Html version](http://nnamretti.ddns.net/api/console/html/pussinboots/book/)
+
+[![Unit Tests](http://unitcover.herokuapp.com/api/pussinboots/heroku-softcover/testsuites/badge)](https://unitcover.herokuapp.com/#/builds/pussinboots/heroku-softcover/builds)
+
 
 This start as heroku project but was not possible to setup there beacuse i need a filesystem so i switch to an amazon aws ec2 instance.
 It is still beta but should work it can be used to check out softcover projects from github and build the different document with
