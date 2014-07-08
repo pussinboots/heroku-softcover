@@ -48,7 +48,7 @@ describe('api', function() {
       it('should return an 404 for /epub/pussinboots/book', function(done){
         request(url)
           .get('/api/content/epub/pussinboots/book')
-          .expect(404, 'Error occurred: Error: Error: ENOENT, open \'tmp/repos/pussinboots/book/ebooks/example.epub\'') //Status code
+          .expect(404, 'Error occurred: Error: Error: ENOENT, open \'/tmp/repos/pussinboots/book/ebooks/example.epub\'') //Status code
           .end(function(err,res) {
             if (err) throw err;
             done();

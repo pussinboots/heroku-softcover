@@ -26,7 +26,7 @@ describe('api', function() {
 		});
 	    it('should return 200 for /pdf/pussinboots/book', function(done){
 			request(url)
-				.get('/api/console/aapdf/pussinboots/book')
+				.get('/api/console/pdf/pussinboots/book')
 				.expect('Content-Type', /text\/plain/)
 				.expect(200) //Status code
 				.end(function(err,res) {
