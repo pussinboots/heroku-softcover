@@ -26,8 +26,8 @@ At the moment it is more a tool for me to learn nodejs better and to support mys
 
 ##TODO
 
-* public dns instead of ip
-* use the http port instead of 9000
+* public dns instead of ip (done)
+* use the http port instead of 9000 (done)
 * reboot and restart stuff
 * automated git pull
 
