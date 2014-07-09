@@ -1,4 +1,4 @@
-var apiServer = require('../server.js');
+//var apiServer = require('../server.js');
 var http = require('http');
 var should = require('should');
 var assert = require('assert');
@@ -21,6 +21,7 @@ describe('api', function() {
 					if (err) {
 						throw err;
 					}
+					res.text.should.startWith('Building HTML...');
 					done();
 				});
 		});
@@ -33,6 +34,7 @@ describe('api', function() {
 					if (err) {
 						throw err;
 					}
+					res.text.should.startWith('Building PDF...');
 					done();
 				});
 	    });
@@ -45,6 +47,7 @@ describe('api', function() {
 					if (err) {
 						throw err;
 					}
+					res.text.should.startWith('Building EPUB...');
 					done();
 				});
 	    });
@@ -57,6 +60,7 @@ describe('api', function() {
 					if (err) {
 						throw err;
 					}
+					res.text.should.startWith('Building MOBI...');
 					done();
 				});
 		});

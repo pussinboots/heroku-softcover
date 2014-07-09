@@ -1,5 +1,5 @@
-var apiServer = require('../server.js');
-var http = require('http');
+//var apiServer = require('../server.js');
+//var http = require('http');
 var should = require('should');
 var assert = require('assert');
 var request = require('supertest');  
@@ -30,7 +30,7 @@ describe('api', function() {
 		    request(url)
 				.get('/api/discover')
 				.expect('Content-Type', /json/)
-				.expect(200, {"HEAD":[],"GET":["discover/:version","proto/*path","/console/pdf/:owner/:repo","/console/epub/:owner/:repo","/console/mobi/:owner/:repo","/console/html/:owner/:repo","/content/pdf/:owner/:repo","/content/epub/:owner/:repo","/content/mobi/:owner/:repo","/content/html/:owner/:repo","/build/pdf/:owner/:repo","/build/epub/:owner/:repo","/build/mobi/:owner/:repo","/build/html/:owner/:repo"],"POST":[],"PUT":[],"DELETE":[]}) //Status code
+				.expect(200, {"HEAD":[],"GET":["discover/:version","proto/*path","/console/:format/:owner/:repo","/content/:format/:owner/:repo","/build/:format/:owner/:repo",],"POST":[],"PUT":[],"DELETE":[]}) //Status code
 				.end(function(err, res) {
 		          	if (err) {
 		            	throw err;
