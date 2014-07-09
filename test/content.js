@@ -1,5 +1,4 @@
-//var apiServer = require('../server.js');
-//var http = require('http');
+var apiServer = require('../server.js');
 var fs = require('fs');
 var should = require('should');
 var assert = require('assert');

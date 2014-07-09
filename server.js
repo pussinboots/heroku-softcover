@@ -36,7 +36,7 @@ function softcover(repo, output, callback) {
 	return exec("softcover build:" + output + " " + options,{cwd: repoFolder +repo}, function (error, stdout, stderr) { 
 		sys.puts(stdout);
 		sys.puts(stderr);
-		var data = readData(repoFolder, repo, output);
+		var data = readData(repo, output);
 		var headers = getHeaders(output);
 		callback(null, data, {headers:headers});
 	});
@@ -89,7 +89,7 @@ function getHeaders(format) {
 		return {'Content-Type':'text/'+format  } 
 }
 
-function readData(repoFolder, repo, format) {
+function readData(repo, format) {
 	var bookYml = yaml.load(repoFolder+repo +'/config/book.yml');
 	if(format !== "html") 
 		return fs.createReadStream(repoFolder+repo +'/ebooks/'+ bookYml.filename + "." + format);
@@ -118,7 +118,7 @@ rest.get('/content/:format/:owner/:repo', function (request, content, callback) 
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
 	var format = validateFormat(request, callback);
 	var repo = request.parameters.owner +"/" + request.parameters.repo;
-	var data = readData(repoFolder, repo, format);
+	var data = readData(repo, format);
 	var headers = getHeaders(format);
 	callback(null, data, {headers:headers});
 } );
