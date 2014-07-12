@@ -1,1 +1,3 @@
 repo: pussinboots/vagrant-devel-full
+folder: /vagrant/project/heroku-softcover
+main: node server.js
