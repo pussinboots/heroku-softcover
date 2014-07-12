@@ -29,7 +29,7 @@ At the moment it is more a tool for me to learn nodejs better and to support mys
 * use the http port instead of 9000 (done)
 * reboot and restart stuff
 * automated git pull
-* api/content not working when book file is not equals example.fileextension will be solved soon
+* api/content not working when book file is not equals example.fileextension will be solved soon (done)
 
 ##Motivation
 
@@ -73,6 +73,10 @@ There are three different api methods
 ##Contribute
 
 I mentioned it's start as a tool for me to near realtime changes on my book but feel free to use it also or to fork and adapt this.
+
+###Fast Contribution
+
+Use the [vagrant-git](https://github.com/pussinboots/vagrant-git) to get a vagrant box with an complete environment ready too run heroku-softcover
 
 ##License
 
