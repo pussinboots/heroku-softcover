@@ -36,6 +36,40 @@ At the moment it is more a tool for me to learn nodejs better and to support mys
 The travis ci build of my softcover project takes to long by installing all needed dependencies. So i guess there
 would be faster way. And so i started this project and it takes my seven hour to get a full working prototyp running on aws ec2. I had preffer heroku but need a local file system to keep things very easy and to concentrate on the main aspects. It takes now seconds to get a actual version of the book in each document types and not 10 minutes anymore.
 
+##Contribution
+
+I mentioned it's start as a tool for me to near realtime changes on my book but feel free to use it also or to fork and adapt this.
+
+###Fast Contribution
+
+Use the [vagrant-git](https://github.com/pussinboots/vagrant-git) to get a vagrant box with an complete environment ready too run heroku-softcover. Because it needs a complete texlive latex distribution and softcover has a lot of runtime dependencies.
+
+Install vagrant-git
+```bash
+npm install -g vagrant-git
+```
+
+Checkout this project and starts a vagrant virtualbox with Ubuntu 14.04 
+* IDE sublime 3 or idea 13 (Ultimate without license) 
+* [softcover-nonstop fork](https://github.com/pussinboots/softcover) that implements nonstopmode for building pdfs see [Pull Request](https://github.com/softcover/softcover/pull/111)
+* all softcover dependencies
+* nodejs and npm
+
+```bash
+vgit --repo pussinboots/heroku-softcover
+```
+
+In a virtual machine terminal perform following to start the heroku softcover server. The command npm install can fail with an obscur error message that is caused by the symlink problem of virtualbox. For a detail explanation and solution look [here](https://github.com/pussinboots/vagrant-git/blob/master/README.md#requirements) .
+```bash
+cd /vagrant/project/heroku-softcover
+npm install
+./node_modules/mocha/bin/mocha --timeout 60000 --reporter spec
+node server.js
+wget http://localhost:9000/api/build/pdf/pussinboots/book/
+```
+
+Than you can open http://localhost:9000/api/build/html/pussinboots/book/ in the browser of your choice. So than you can start with your development of that project.
+
 ##API
 
 There are three different api methods 
@@ -69,14 +103,6 @@ There are three different api methods
 [Console Epub Document](http://nnamretti.ddns.net/api/console/epub/pussinboots/book/)
 
 [Console Mobi Document](http://nnamretti.ddns.net/api/console/mobi/pussinboots/book/)
-
-##Contribute
-
-I mentioned it's start as a tool for me to near realtime changes on my book but feel free to use it also or to fork and adapt this.
-
-###Fast Contribution
-
-Use the [vagrant-git](https://github.com/pussinboots/vagrant-git) to get a vagrant box with an complete environment ready too run heroku-softcover
 
 ##License
 
