@@ -40,21 +40,20 @@ would be faster way. And so i started this project and it takes my seven hour to
 
 I mentioned it's start as a tool for me to near realtime changes on my book but feel free to use it also or to fork and adapt this.
 
-###Fast Contribution
+##Fast Contribution
 
-Use the [vagrant-git](https://github.com/pussinboots/vagrant-git) to get a vagrant box with an complete environment ready too run heroku-softcover. Because it needs a complete texlive latex distribution and softcover has a lot of runtime dependencies.
+Use the [vagrant-git](https://github.com/pussinboots/vagrant-git) to get the vagrant box [vagrant-devel-full](https://github.com/pussinboots/vagrant-devel) with an complete environment ready to run heroku-softcover. Because it needs a complete texlive latex distribution and softcover has a lot of runtime dependencies.
 
 Install vagrant-git
 ```bash
 npm install -g vagrant-git
 ```
 
-Checkout this project and starts a vagrant virtualbox with Ubuntu 14.04 
+The command below check this project out and starts a vagrant virtualbox with Ubuntu 14.04 
 * IDE sublime 3 or idea 13 (Ultimate without license) 
 * [softcover-nonstop fork](https://github.com/pussinboots/softcover) that implements nonstopmode for building pdfs see [Pull Request](https://github.com/softcover/softcover/pull/111)
 * all softcover dependencies
 * nodejs and npm
-
 ```bash
 vgit --repo pussinboots/heroku-softcover
 ```
