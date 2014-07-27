@@ -93,23 +93,23 @@ function readData(repo, format) {
 }
 
 rest.get('/console/@format/:owner/:repo', function (request, content, callback) {
-	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
+	console.log( 'Received:' + request.parameters.format + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
-	fetchRepo(repo, format, true, callback)
+	fetchRepo(repo, request.parameters.format, true, callback)
 }, { contentType:'text/plain', format:FORMATS } );
 
 rest.get('/content/@format/:owner/:repo', function (request, content, callback) {
-	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
+	console.log( 'Received:' + request.parameters.format + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo;
-	var data = readData(repo, format);
-	var headers = getHeaders(format);
+	var data = readData(repo, request.parameters.format);
+	var headers = getHeaders(request.parameters.format);
 	callback(null, data, {headers:headers});
 }, {format:FORMATS} );
 
 rest.get('/build/:format/:owner/:repo', function (request, content, callback) {
-	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
+	console.log( 'Received:' + request.parameters.format + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
-	fetchRepo(repo, format, false, callback)
+	fetchRepo(repo, request.parameters.format, false, callback)
 }, {format:FORMATS} );
 
 server.use(function(req, res, next) {
