@@ -75,12 +75,7 @@ function fetchRepo(repo, output, stdout, callback) {
   	}	
 }
 
-var FORMATS = {
-  pdf : "pdf",
-  epub: "epub", 
-  mobi : "mobi",
-  html : "html"
-};
+var FORMATS = [ "pdf", "epub", "mobi", "html"];
 
 function getHeaders(format) {
 	if(format !== "html") 
@@ -97,38 +92,25 @@ function readData(repo, format) {
 		return fs.createReadStream(repoFolder+repo +'/html/'+ bookYml.filename + "." + format);
 }
 
-function validateFormat(request, callback) {
-	var format = FORMATS[request.parameters.format];
-	if(!format) {
-		 var error = new Error('invalid format: valid fomarts are pdf, epub, mobi or html.');
-	     error.statusCode = 400;
-	     return callback( error );
-	}
-	return format;
-}
-
-rest.get('/console/:format/:owner/:repo', function (request, content, callback) {
+rest.get('/console/@format/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
-	var format = validateFormat(request, callback);
 	var repo = request.parameters.owner +"/" + request.parameters.repo
 	fetchRepo(repo, format, true, callback)
-}, { contentType:'text/plain' } );
+}, { contentType:'text/plain', format:FORMATS } );
 
-rest.get('/content/:format/:owner/:repo', function (request, content, callback) {
+rest.get('/content/@format/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
-	var format = validateFormat(request, callback);
 	var repo = request.parameters.owner +"/" + request.parameters.repo;
 	var data = readData(repo, format);
 	var headers = getHeaders(format);
 	callback(null, data, {headers:headers});
-} );
+}, {format:FORMATS} );
 
 rest.get('/build/:format/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.format() + ' ' + JSON.stringify(content) );
-	var format = validateFormat(request, callback);
 	var repo = request.parameters.owner +"/" + request.parameters.repo
 	fetchRepo(repo, format, false, callback)
-});
+}, {format:FORMATS} );
 
 server.use(function(req, res, next) {
 	//todo url validation match start url dont't care what follows after some slashes
