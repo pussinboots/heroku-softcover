@@ -29,7 +29,7 @@ describe('api', function() {
 		    request(url)
 				.get('/api/discover')
 				.expect('Content-Type', /json/)
-				.expect(200, {"HEAD":[],"GET":["discover/:version","proto/*path","/console/:format/:owner/:repo","/content/:format/:owner/:repo","/build/:format/:owner/:repo",],"POST":[],"PUT":[],"DELETE":[]}) //Status code
+				.expect(200, {"HEAD":[],"GET":["discover/:version","proto/*path","/console/@format/:owner/:repo","/content/@format/:owner/:repo","/build/@format/:owner/:repo",],"POST":[],"PUT":[],"DELETE":[]}) //Status code
 				.end(function(err, res) {
 		          	if (err) {
 		            	throw err;
