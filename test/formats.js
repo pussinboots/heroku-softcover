@@ -13,7 +13,7 @@ describe('api validates format', function() {
       request(url)
         .get('/api/console/invalid/pussinboots/book')
         .expect('Content-Type', /text\/plain/)
-  			.expect(400, 'Error occurred: Error: invalid format: valid fomarts are pdf, epub, mobi or html.') //Status code
+  			.expect(404, 'Cannot GET /api/console/invalid/pussinboots/book') //Status code
   			.end(function(err,res) {
   					if (err) throw err;
   					done();
