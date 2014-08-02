@@ -106,7 +106,7 @@ rest.get('/content/@format/:owner/:repo', function (request, content, callback) 
 	callback(null, data, {headers:headers});
 }, {format:FORMATS} );
 
-rest.get('/build/:format/:owner/:repo', function (request, content, callback) {
+rest.get('/build/@format/:owner/:repo', function (request, content, callback) {
 	console.log( 'Received:' + request.parameters.format + ' ' + JSON.stringify(content) );
 	var repo = request.parameters.owner +"/" + request.parameters.repo
 	fetchRepo(repo, request.parameters.format, false, callback)
