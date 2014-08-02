@@ -12,7 +12,7 @@ describe('api validates format', function() {
     it('should return an 404 for /invalid/pussinboots/book', function(done){
       request(url)
         .get('/api/console/invalid/pussinboots/book')
-        .expect('Content-Type', /text\/plain/)
+        .expect('Content-Type', /text\/html; charset=utf-8/)
   			.expect(404, 'Cannot GET /api/console/invalid/pussinboots/book\n') //Status code
   			.end(function(err,res) {
   					if (err) throw err;
